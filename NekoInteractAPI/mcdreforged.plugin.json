@@ -13,6 +13,5 @@
     "link": "https://github.com/NekoApplications/NekoInteractAPI-MCDR",
     "dependencies": {
        "mcdreforged": ">=2.0.0"
-    },
-    "entrypoint": "entry"
+    }
 }
