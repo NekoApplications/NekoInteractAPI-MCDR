@@ -1,0 +1,18 @@
+{
+    "id": "neko_interact_api",
+    "version": "1.0.0",
+    "name": "Neko Interact API",
+    "description": {
+      "en_us": "Interaction and interoperation between MC and MCDReforged",
+      "zh_cn": "一个实现MC与MCDReforged双向通信的交互API插件"
+    },
+    "author": [
+      "Sky_Dynamic",
+      "ZhuRuoLing"
+    ],
+    "link": "https://github.com/NekoApplications/NekoInteractAPI-MCDR",
+    "dependencies": {
+       "mcdreforged": ">=2.0.0"
+    },
+    "entrypoint": "entry"
+}

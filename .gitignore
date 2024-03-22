@@ -1,0 +1,8 @@
+/server/
+/config.yml
+/permission.yml
+/logs/
+/config/
+/run/
+/.venv/
+/.idea/
