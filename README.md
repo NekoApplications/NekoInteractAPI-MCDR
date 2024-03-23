@@ -1,5 +1,5 @@
 <div align="center">
-<a><img src="./logo.png" width="180" height="180" alt="NoneBotPluginLogo"></a>
+<a><img src="./logo.png" width="180" height="180"></a>
 </div>
 
 <div align="center">
