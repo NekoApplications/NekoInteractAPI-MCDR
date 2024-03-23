@@ -1,14 +1,17 @@
+import json
 import time
 import websocket
+
 from mcdreforged.api.decorator import new_thread
 
 from .logger import logger
+from .mcdr_utils import mcdr_utils
 
 class WebSocketService:
     ws: websocket.WebSocketApp = None
     
     @new_thread("NekoInteractAPI Websocket Thread")
-    def connect(self, host, port):
+    def connect(self, host, port) -> None:
         self.ws = websocket.WebSocketApp(f"ws://{host}:{port}/",
                                          on_open=self.on_open,
                                          on_message=self.on_message,
@@ -19,14 +22,13 @@ class WebSocketService:
     def send(self, data: str):
         self.ws.send(data)
     
-    def close(self):
+    def close(self) -> None:
         if self.ws:
             self.ws.close()
         self.ws = None
     
     def on_message(self, ws, message):
-        # Packet Handler
-        ...
+        self.message_handler(message)
     
     def on_error(self, ws, error):
         logger.error("webSocket似乎发生了一个错误: " + error)
@@ -37,3 +39,39 @@ class WebSocketService:
     
     def on_open(self, ws):
         ws.send(f"Connect_PACKET_{time.time()}")
+    
+    def message_handler(self, message: str) -> None:
+        data = json.loads(message)
+        try:
+            response = globals()[data["service"]](data)
+        except KeyError:
+            response = {
+                "status": -1001,
+                "service": data["service"],
+                "requestId": data["requestId"],
+                "message": "Service NotFound",
+                "data": {}
+            }
+        self.send(json.dumps(response))
+        
+def mcdr_complete_command(data):
+    return {
+        "status": 0,
+        "service": data["service"],
+        "requestId": data["requestId"],
+        "message": "",
+        "data": {
+            "suggestions": mcdr_utils.get_suggestions(data.get("data").get("command"))
+        }
+    }
+
+def mcdr_send_command(data):
+    return {
+        "status": 0,
+        "service": data["service"],
+        "requestId": data["requestId"],
+        "message": "",
+        "data": {
+            "response": mcdr_utils.send_command(data.get("data").get("command"))
+        }
+    }
