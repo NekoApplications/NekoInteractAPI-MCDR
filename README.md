@@ -1,11 +1,11 @@
-<div style="text-align:center;">
+<div align="center">
 <a><img src="./logo.png" width="180" height="180" alt="NoneBotPluginLogo"></a>
 </div>
 
-<div style="text-align:center;">
+<div align="center">
 
 # NekoInteractAPI
-_✨ 一个实现MC与MCDReforged双向通信的交互API插 ✨_  
+_✨ 一个实现MC与MCDReforged双向通信的交互API插件 ✨_  
 
 </div>
 
