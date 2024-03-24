@@ -31,13 +31,13 @@
 | 参数名       | 类型                  | 描述                            |
 |-----------|---------------------|-------------------------------|
 | status    | Integer             | 状态码, 见[状态码](./status_code.md) |
-| service   | String              | 调用的服务,与请求的相同                  |
+| service   | String              | 调用的服务, 与请求的相同                 |
 | requestId | String              | 唯一会话ID, 与请求的相同                |
 | message   | String              | 信息(通常为错误信息)                   |
 | data      | Map[String, Object] | 返回的数据, 具体数据根据调用的服务变化          |
 
 ### 例子:
-假设我要设置xxx的MCDR权限为Owner, 那么应该向服务端传入
+假设我要设置xxx的MCDR权限为Owner, 那么应该向插件传入
 ```
 {
     "service": "mcdr_permission_set",
@@ -64,6 +64,8 @@
 |-------------|--------------|------|
 | suggestions | List[String] | 指令建议 |
 
+---
+
 ## mcdr_send_command
 > 向MCDR发送指令
 
@@ -77,6 +79,8 @@
 |----------|--------|------|
 | response | String | 指令返回 |
 
+---
+
 ## mcdr_permission_list
 > 获取MCDR的所有成员权限列表
 
@@ -87,6 +91,8 @@
 | 参数名      | 类型                        | 描述         |
 |----------|---------------------------|------------|
 | response | Map[String, List[String]] | 权限组及其成员Map |
+
+---
 
 ## mcdr_permission_get
 > 获取某个玩家的权限等级
@@ -101,6 +107,8 @@
 |--------------|---------|----------|
 | player       | String  | 与获取的玩家相同 |
 | permission   | String  | 权限等级     |
+
+---
 
 ## mcdr_permission_set
 > 设置某个玩家的权限等级
