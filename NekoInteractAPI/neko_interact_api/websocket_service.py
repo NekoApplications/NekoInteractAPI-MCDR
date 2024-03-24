@@ -43,7 +43,7 @@ class WebSocketService:
     def message_handler(self, message: str) -> None:
         data = json.loads(message)
         try:
-            response = globals()[data["service"]](data)
+            response = globals()[data["service"].lower()](data)
         except KeyError:
             response = {
                 "status": -1001,
@@ -75,3 +75,48 @@ def mcdr_send_command(data):
             "response": mcdr_utils.send_command(data.get("data").get("command"))
         }
     }
+
+def mcdr_permission_get(data):
+    return {
+        "status": 0,
+        "service": data["service"],
+        "requestId": data["requestId"],
+        "message": "",
+        "data": {
+            "player": data["data"]["player"],
+            "permission": mcdr_utils.get_player_permission(data.get("data").get("player"))
+        }
+    }
+
+def mcdr_permission_list(data):
+    return {
+        "status": 0,
+        "service": data["service"],
+        "requestId": data["requestId"],
+        "message": "",
+        "data": {
+            "response": mcdr_utils.get_mcdr_permission()
+        }
+    }
+
+def mcdr_permission_set(data):
+    result, msg = mcdr_utils.set_player_permission(data.get("data").get("player"), data.get("data").get("permission"))
+    if result:
+        return {
+            "status": 0,
+            "service": data["service"],
+            "requestId": data["requestId"],
+            "message": msg,
+            "data": {
+                "response": "success"
+            }
+        }
+    else:
+        return {
+            "status": -1011,
+            "service": data["service"],
+            "requestId": data["requestId"],
+            "message": msg,
+            "data": {}
+        }
+    
