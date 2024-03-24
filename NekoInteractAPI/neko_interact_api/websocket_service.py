@@ -55,13 +55,14 @@ class WebSocketService:
         self.send(json.dumps(response))
         
 def mcdr_complete_command(data):
+    suggestions = mcdr_utils.get_suggestions(data.get("data").get("command"))
     return {
         "status": 0,
         "service": data["service"],
         "requestId": data["requestId"],
         "message": "",
         "data": {
-            "suggestions": mcdr_utils.get_suggestions(data.get("data").get("command"))
+            "suggestions": json.dumps(suggestions)
         }
     }
 
@@ -89,13 +90,14 @@ def mcdr_permission_get(data):
     }
 
 def mcdr_permission_list(data):
+    perms = mcdr_utils.get_mcdr_permission()
     return {
         "status": 0,
         "service": data["service"],
         "requestId": data["requestId"],
         "message": "",
         "data": {
-            "response": json.dumps(mcdr_utils.get_mcdr_permission())
+            "response": json.dumps(perms)
         }
     }
 

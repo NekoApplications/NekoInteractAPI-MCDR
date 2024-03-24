@@ -41,7 +41,7 @@ class MCDRUtils:
         self.server = server
     
     def get_suggestions(self, incomplete_command) -> list[str]:
-        command_manager = self.server.mcdr_server.command_manager
+        command_manager = self.server._mcdr_server.command_manager
         suggestions = []
         for s in command_manager.suggest_command(incomplete_command, self.server.get_plugin_command_source()):
             if s.suggest_input != incomplete_command:
@@ -56,12 +56,12 @@ class MCDRUtils:
     def get_player_permission(self, player: str) -> int:
         result = self.server.get_permission_level(player)
         if not result:
-            return PermissionLevel.from_value(self.server.mcdr_server.permission_manager.get_default_permission_level()).level
+            return PermissionLevel.from_value(self.server._mcdr_server.permission_manager.get_default_permission_level()).level
         else:
             return result
     
     def get_mcdr_permission(self) -> dict[str, list[str]]:
-        permission_manager = self.server.mcdr_server.permission_manager
+        permission_manager = self.server._mcdr_server.permission_manager
         result = {}
         for p in PermissionLevel.LEVELS:
             result[PermissionLevel.from_value(p).name] = permission_manager.get_permission_group_list(p)
