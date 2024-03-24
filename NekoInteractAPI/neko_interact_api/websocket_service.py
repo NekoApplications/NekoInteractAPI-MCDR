@@ -31,7 +31,7 @@ class WebSocketService:
         self.message_handler(message)
     
     def on_error(self, ws, error):
-        logger.error("webSocket似乎发生了一个错误: " + error)
+        logger.error("webSocket似乎发生了一个错误: " + str(error))
     
     def on_close(self, ws, close_status_code, close_msg):
         logger.info("webSocket连接已关闭, 关闭代码: " + close_status_code)
