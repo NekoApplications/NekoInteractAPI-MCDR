@@ -60,7 +60,7 @@ class MCDRUtils:
         else:
             return result
     
-    def get_mcdr_permission(self) -> dict[str, str]:
+    def get_mcdr_permission(self) -> dict[str, list[str]]:
         permission_manager = self.server.mcdr_server.permission_manager
         result = {}
         for p in PermissionLevel.LEVELS:

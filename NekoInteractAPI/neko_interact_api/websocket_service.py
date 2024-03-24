@@ -84,7 +84,7 @@ def mcdr_permission_get(data):
         "message": "",
         "data": {
             "player": data["data"]["player"],
-            "permission": mcdr_utils.get_player_permission(data.get("data").get("player"))
+            "permission": str(mcdr_utils.get_player_permission(data.get("data").get("player")))
         }
     }
 
@@ -95,7 +95,7 @@ def mcdr_permission_list(data):
         "requestId": data["requestId"],
         "message": "",
         "data": {
-            "response": mcdr_utils.get_mcdr_permission()
+            "response": json.dumps(mcdr_utils.get_mcdr_permission())
         }
     }
 
@@ -119,4 +119,3 @@ def mcdr_permission_set(data):
             "message": msg,
             "data": {}
         }
-    
