@@ -28,5 +28,9 @@ _✨ 一个实现MC与MCDReforged双向通信的交互API插件 ✨_
 }
 ```
 
+## 文档
+
+- [插件内置服务接口](readme_folder/services_cn.md)
+
 ## 许可
 本项目遵循 [MIT License](https://mit-license.org/) 许可
