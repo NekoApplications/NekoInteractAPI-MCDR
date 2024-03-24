@@ -4,6 +4,7 @@ from mcdreforged.command.command_source import CommandSource
 from mcdreforged.info_reactor.info import Info
 from mcdreforged.plugin.server_interface import PluginServerInterface
 
+from .logger import update_logger
 from .websocket_service import WebSocketService
 from .config import Configuration
 from .constant import CONFIG_FILE
@@ -16,6 +17,9 @@ config: Configuration
 
 def on_info(server: PluginServerInterface, info: Info):
     if not info.is_user and info.content.startswith("[NekoInteractAPI]"):
+        if info.content == "[NekoInteractAPI] Stopping!":
+            websocket_service.available = False
+            return
         match = re.match(r"\[NekoInteractAPI] Socket Port: (6553[0-5]|655[0-2]\d|65[0-4]\d{2}|6[0-4]\d{3}|[1-5]\d{4}|\d{1,4})", info.content)
         port = match.group(1)
         if config.enable:
@@ -30,7 +34,7 @@ def load_config(source: CommandSource or None = None):
 def on_load(server: PluginServerInterface, old):
     global server_inst
     server_inst = server
-    
+    update_logger(server.logger)
     mcdr_utils.set_server(server)
     
     load_config()

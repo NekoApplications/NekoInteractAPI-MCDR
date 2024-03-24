@@ -1,3 +1,8 @@
 import logging
+from mcdreforged.utils.logger import MCDReforgedLogger
 
-logger: logging.Logger = logging.getLogger("NekoInteractAPI")
+logger: MCDReforgedLogger = None
+
+def update_logger(loggger):
+    global logger
+    logger = loggger

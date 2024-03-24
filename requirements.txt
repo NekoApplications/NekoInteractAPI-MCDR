@@ -1,2 +1,2 @@
-mcdreforged~=2.13.0a5
+mcdreforged
 websocket-client~=1.7.0

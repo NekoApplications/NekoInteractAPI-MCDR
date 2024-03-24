@@ -9,6 +9,9 @@ from .mcdr_utils import mcdr_utils
 
 class WebSocketService:
     ws: websocket.WebSocketApp = None
+
+    def __init__(self):
+        self.available = False
     
     @new_thread("NekoInteractAPI Websocket Thread")
     def connect(self, host, port) -> None:
@@ -17,6 +20,7 @@ class WebSocketService:
                                          on_message=self.on_message,
                                          on_error=self.on_error)
         self.ws.run_forever(ping_interval=30, ping_timeout=5, ping_payload=f"Heartbeat_PING_{time.time()}")
+        self.available = True
     
     def send(self, data: str):
         self.ws.send(data)
@@ -30,7 +34,8 @@ class WebSocketService:
         self.message_handler(message)
     
     def on_error(self, ws, error):
-        logger.error("webSocket似乎发生了一个错误: " + str(error))
+        if self.available:
+            logger.error("webSocket似乎发生了一个错误: " + str(error))
     
     def on_open(self, ws):
         ws.send(f"Connect_PACKET_{time.time()}")
